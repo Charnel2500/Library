@@ -1,0 +1,5 @@
+/home/jakub/C++/Library/CMakeFiles/Library.dir
+/home/jakub/C++/Library/CMakeFiles/clean_target.dir
+/home/jakub/C++/Library/CMakeFiles/pack.dir
+/home/jakub/C++/Library/CMakeFiles/edit_cache.dir
+/home/jakub/C++/Library/CMakeFiles/rebuild_cache.dir
