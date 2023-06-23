@@ -16,6 +16,7 @@ void Library::displayBooks() const {
     for (const Book& book : books) {
         std::cout << "Title: " << book.getTitle() << std::endl;
         std::cout << "Author: " << book.getAuthor() << std::endl;
+        std::cout << "Genre: " << book.getGenre() << std::endl;
         std::cout << "Year: " << book.getYear() << std::endl;
         std::cout << "------------------------" << std::endl;
     }
