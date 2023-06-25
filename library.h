@@ -12,6 +12,7 @@ public:
     void addBook(const Book& book);
     void removeBook(const std::string& title);
     void displayBooks() const;
+    void findBook(const std::string& title);
 };
 
 #endif

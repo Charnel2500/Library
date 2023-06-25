@@ -21,3 +21,28 @@ void Library::displayBooks() const {
         std::cout << "------------------------" << std::endl;
     }
 }
+
+void Library::findBook(const std::string& title) {
+    std::vector<Book> foundBooks;
+
+    for (const Book& book : books) {
+        if (book.getTitle() == title) {
+            foundBooks.push_back(book);
+        }
+    }
+
+    if (foundBooks.empty()) {
+        std::cout << "No books with the given title found in the library." << std::endl;
+    } else {
+        std::cout << "Books found in the library:" << std::endl;
+        for (const Book& book : foundBooks) {
+            std::cout << "Title: " << book.getTitle() << std::endl;
+            std::cout << "Author: " << book.getAuthor() << std::endl;
+            std::cout << "Genre: " << book.getGenre() << std::endl;
+            std::cout << "Year: " << book.getYear() << std::endl;
+            std::cout << "------------------------" << std::endl;
+        }
+    }
+}
+
+
