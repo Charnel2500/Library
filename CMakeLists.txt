@@ -5,6 +5,7 @@ add_executable(Library
     main.cpp
     book.cpp
     library.cpp
+    reader.cpp
 )
 
 add_custom_target(clean_target
@@ -16,6 +17,7 @@ add_custom_target(pack
             "${CMAKE_CURRENT_SOURCE_DIR}/main.cpp"
             "${CMAKE_CURRENT_SOURCE_DIR}/book.cpp"
             "${CMAKE_CURRENT_SOURCE_DIR}/library.cpp"
+            "${CMAKE_CURRENT_SOURCE_DIR}/reader.cpp"
     WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
     COMMENT "Creating source archive"
 )
