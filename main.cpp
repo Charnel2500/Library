@@ -6,7 +6,7 @@ int main() {
     Library library;
     
     std::string title, author, genre;
-    int year, numberOfBooks;
+    int year, numberOfBooks, readerId;
 
     std::cout << "How many books do you want to add?" << std::endl;
     std::cin >> numberOfBooks;
@@ -30,14 +30,14 @@ int main() {
         std::cin >> year;
         std::cin.ignore(); // Ignorowanie znaku nowej linii w buforze wejściowym
 
-        Book book(title, author, genre, year);
+        Book book(title, author, genre, year, readerId);
         library.addBook(book);
         numberOfBooks--;
     }
 
-    Book book1("The Great Gatsby", "F. Scott Fitzgerald", "Novel", 1925);
-    Book book2("To Kill a Mockingbird", "Harper Lee", "Fantasy", 1960);
-    Book book3("1984", "George Orwell", "Drama", 1949);
+    Book book1("The Great Gatsby", "F. Scott Fitzgerald", "Novel", 1925, 0);
+    Book book2("To Kill a Mockingbird", "Harper Lee", "Fantasy", 1960, 0);
+    Book book3("1984", "George Orwell", "Drama", 1949, 0);
 
     library.addBook(book1);
     library.addBook(book2);

@@ -44,6 +44,7 @@ void Library::findBookByTitle(const std::string& title) {
         }
     }
 }
+
 void Library::findBookByAuthor(const std::string& author) {
     std::vector<Book> foundBooks;
 
@@ -54,7 +55,7 @@ void Library::findBookByAuthor(const std::string& author) {
     }
 
     if (foundBooks.empty()) {
-        std::cout << "No books with the given title found in the library." << std::endl;
+        std::cout << "No books with the given author found in the library." << std::endl;
     } else {
         std::cout << "Books found in the library:" << std::endl;
         for (const Book& book : foundBooks) {
@@ -67,3 +68,30 @@ void Library::findBookByAuthor(const std::string& author) {
     }
 }
 
+void Library::borrowBook(const std::string& title, Reader& reader) {
+    auto it = std::find_if(books.begin(), books.end(),
+        [&](const Book& book) { return book.getTitle() == title && book.getReaderId() == 0; });
+
+    if (it != books.end()) {
+        it->setReaderId(reader.getId());
+        reader.borrowBook(*it);
+
+        std::cout << "Book \"" << it->getTitle() << "\" borrowed successfully by reader with ID: " << reader.getId() << std::endl;
+    } else {
+        std::cout << "Book \"" << title << "\" is not available for borrowing." << std::endl;
+    }
+}
+
+void Library::returnBook(const std::string& title, Reader& reader) {
+    auto it = std::find_if(books.begin(), books.end(),
+        [&](const Book& book) { return book.getTitle() == title && book.getReaderId() == reader.getId(); });
+
+    if (it != books.end()) {
+        it->setReaderId(0);
+        reader.returnBook(*it);
+
+        std::cout << "Book \"" << it->getTitle() << "\" returned successfully by reader with ID: " << reader.getId() << std::endl;
+    } else {
+        std::cout << "Book \"" << title << "\" was not borrowed by reader with ID: " << reader.getId() << std::endl;
+    }
+}

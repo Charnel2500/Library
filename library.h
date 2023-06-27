@@ -2,6 +2,7 @@
 #define LIBRARY_H
 
 #include "book.h"
+#include "reader.h"
 #include <vector>
 
 class Library {
@@ -14,6 +15,8 @@ public:
     void displayBooks() const;
     void findBookByTitle(const std::string& title);
     void findBookByAuthor(const std::string& author);
+    void borrowBook(const std::string& title, Reader& reader);
+    void returnBook(const std::string& title, Reader& reader);
 };
 
 #endif
