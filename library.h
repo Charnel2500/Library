@@ -10,6 +10,7 @@ private:
     std::vector<Book> books;
 
 public:
+    void libraryDescription();
     void addBook(const Book& book);
     void removeBook(const std::string& title);
     void displayBooks() const;
