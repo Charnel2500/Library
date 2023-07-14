@@ -97,10 +97,10 @@ void Library::addReader() {
 }
 
 void Library::menu() {
-    std::cout << "Choose your action. 1. Add reader; 2. Add book; 3. Show list of readers. 4. Show list of books. 5. Exit.";
     int choice = 1;
-    std::cin >> choice;
     do {
+        std::cout << "Choose your action. 1. Add reader; 2. Add book; 3. Show list of readers. 4. Show list of books. 5. Exit." << std::endl;
+        std::cin >> choice;
         switch (choice) {
             case 1:
                 std::cout << "You chose 1. Add reader." << std::endl;
