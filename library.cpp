@@ -1,6 +1,8 @@
 #include "library.h"
 #include <iostream>
 #include <algorithm>
+#include <fstream>
+#include <sstream> 
 
 void Library::libraryDescription() {
     #include <iostream>
@@ -56,8 +58,17 @@ void Library::addBook() {
     std::getline(std::cin >> std::ws, title);
     std::cout << "Enter book's author: ";
     std::getline(std::cin >> std::ws, author);
-    std::cout << "Enter book's genre: ";
-    std::getline(std::cin >> std::ws, genre);
+
+    while (true) {
+        std::cout << "Enter book's genre (Fiction, Mystery, Romance, Fantasy, Science Fiction, Thriller, Horror, Adventure, Historical Fiction, Biography, Self-Help, Poetry, Memoir, Young Adult, Dystopian, Crime, Humor, Non-Fiction, Paranormal, Graphic Novel): ";
+        std::getline(std::cin >> std::ws, genre);
+
+        if (validGenres.count(genre) > 0) {
+            break; 
+        } else {
+            std::cout << "Invalid genre. Please choose from the list of valid genres." << std::endl;
+        }
+    }
     std::cout << "Enter book's year of publication: ";
     std::cin >> year;
 
@@ -124,7 +135,6 @@ void Library::menu() {
                 
             case 5:
                 std::cout << "You chose 5. Exit." << std::endl;
-                displayBooks();
                 break;
                 
             default:
@@ -234,3 +244,105 @@ void Library::returnBook(const std::string& title, Reader& reader) {
         std::cout << "Book \"" << title << "\" was not borrowed by reader with ID: " << reader.getId() << std::endl;
     }
 }
+void Library::saveReadersToFile(const std::string& filename) const {
+    std::ofstream file(filename);
+
+    if (file.is_open()) {
+        for (const Reader& reader : readers) {
+            file << reader.getId() << " "
+                 << reader.getFirstName() << " "
+                 << reader.getSurname() << " "
+                 << reader.getGender() << " "
+                 << reader.getDayOfBirth() << " "
+                 << reader.getMonthOfBirth() << " "
+                 << reader.getYearOfBirth() << "\n";
+        }
+
+        file.close();
+        std::cout << "Data has been saved to the file successfully." << std::endl;
+    } else {
+        std::cout << "Unable to open the file for saving data." << std::endl;
+    }
+}
+
+void Library::loadReadersFromFile(const std::string& filename) {
+    std::ifstream file(filename);
+
+    if (file.is_open()) {
+        readers.clear(); 
+
+        std::string line;
+        while (std::getline(file, line)) {
+            std::istringstream iss(line);
+            int id;
+            std::string firstName;
+            std::string surname;
+            char gender;
+            int dayOfBirth;
+            int monthOfBirth;
+            int yearOfBirth;
+
+            if (iss >> id >> firstName >> surname >> gender >> dayOfBirth >> monthOfBirth >> yearOfBirth) {
+                Reader reader(id, firstName, surname, gender, dayOfBirth, monthOfBirth, yearOfBirth);
+                readers.push_back(reader);
+            } else {
+                std::cout << "Error reading data from the file. Invalid format." << std::endl;
+                break;
+            }
+        }
+
+        file.close();
+        std::cout << "Data has been loaded from the file successfully." << std::endl;
+    } else {
+        std::cout << "Unable to open the file for loading data." << std::endl;
+    }
+}
+
+
+void Library::saveBooksToFile(const std::string& filename) const {
+    std::ofstream file(filename);
+
+    if (file.is_open()) {
+        for (const Book& book : books) {
+            file << book.getTitle() << " "
+                 << book.getAuthor() << " "
+                 << book.getGenre() << " "
+                 << book.getYear() << " "
+                 << book.getReaderId() << "\n";
+        }
+
+        file.close();
+        std::cout << "Data has been saved to the file successfully." << std::endl;
+    } else {
+        std::cout << "Unable to open the file for saving data." << std::endl;
+    }
+}
+
+void Library::loadBooksFromFile(const std::string& filename) {
+    std::ifstream file(filename);
+
+    if (file.is_open()) {
+        books.clear();
+        
+        std::string line;
+        while (std::getline(file, line)) {
+            std::istringstream iss(line);
+            std::string title, author, genre;
+            int year, readerId;
+
+            if (iss >> title >> author >> genre >> year >> readerId) {
+                Book book(title, author, genre, year, readerId);
+                books.push_back(book);
+            } else {
+                std::cout << "Error reading data from the file. Invalid format." << std::endl;
+                break;
+            }
+        }
+
+        file.close();
+        std::cout << "Data has been loaded from the file successfully." << std::endl;
+    } else {
+        std::cout << "Unable to open the file for loading data." << std::endl;
+    }
+}
+
